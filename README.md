@@ -1,5 +1,5 @@
-![](stuff/misc/skylab-logo.png)
+![](stuff/misc/alterna-mdc-logo.png)
 
-# Full-Stack Web-Development Bootcamp 201904
+# Control de flujos de módulos electrónicos y vehículos
 
-## Flow Control of Electronic Control Modules
+## Alterna MDC C.A.
