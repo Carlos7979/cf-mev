@@ -1,10 +1,10 @@
-# CF - MCE App
+# CF - MEV App
 
-## `Flow control of electronic control modules`
+## `Flow control of electronic control modules and vehicles`
 
-## [Documentation](cf-mce-doc/README.md)
+## [Documentation](cf-mev-doc/README.md)
 
-## [Live Demo](https://cf-mce.surge.sh)
+## [Live Demo](https://cf-mev.surge.sh)
 
 ## Available Scripts
 

@@ -4,7 +4,6 @@ const { Schema } = require('mongoose')
 const product = new Schema({
     description: {
         type: String,
-        required: true,
         enum: ['REVISION', 'REPAIR', 'RESTORATION', 'MAINTENANCE', 'SPARES', 'REFUND', 'DISCOUNT' ],
         default: 'REVISION',
     },
@@ -56,14 +55,13 @@ const electronicModule = new Schema({
     transmission: { type: String },
     year: { type: String },
     engine: { type: String },
-    device: { type: String, required: true, default: 'MCE' },
+    device: { type: String, default: 'MCE' },
     serial: { type: String },
     fail: { type: String },
     owner: { type: Schema.Types.ObjectId, ref: 'Customer', required: true },
     budget: [product],
     status: {
         type: String,
-        required: true,
         enum: ['RECEIVED', 'REVIEWED', 'BUDGETED', 'APPROVED', 'REPAIRED', 'TO-COLLECT', 'DELIVERED', 'COLLECTED'],
         default: 'RECEIVED',
     },
