@@ -16,6 +16,19 @@ const note = new Schema({
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 })
 
+const spare = new Schema({
+    text: { type: String, required: true },
+    price: { type: Number }
+})
+
+const registered = new Schema({
+    number: {type: Number, required: true},
+    statusHistory: {type: Object, default: {}},
+    budget: [product],
+    spares: [spare],
+    technician: { type: String }
+})
+
 const user = new Schema({
     name: { type: String, required: true },
     surname: { type: String, required: true },
@@ -34,7 +47,7 @@ const customer = new Schema({
     surname: { type: String },
     phone: { type: String },
     address: { type: String },
-    nid: { type: String, required: true },
+    nid: { type: String, required: true, unique: true },
     email: { type: String },
     notes: [note]
 })
@@ -48,7 +61,7 @@ const electronicModule = new Schema({
     delivered: { type: Date },
     toCollect: { type: Date },
     collected: { type: Date },
-    orderNumber: { type: String, required: true },
+    orderNumber: { type: String, required: true, unique: true },
     brand: { type: String },
     model: { type: String },
     cylinders: { type: String },
@@ -65,8 +78,10 @@ const electronicModule = new Schema({
         enum: ['RECEIVED', 'REVIEWED', 'BUDGETED', 'APPROVED', 'REPAIRED', 'TO-COLLECT', 'DELIVERED', 'COLLECTED'],
         default: 'RECEIVED',
     },
-    notes: [note]
-
+    notes: [note],
+    historical: [registered],
+    spares: [spare],
+    technician: { type: String }
 })
 
 module.exports = { user, customer, electronicModule, product, note }
