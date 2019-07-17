@@ -1,14 +1,14 @@
 const dotenv = require('dotenv')
-const { mongoose, models } = require('cf-mce-data')
+const { mongoose, models } = require('cf-mev-data')
 const { errors: {
     LogicError,
     RequirementError,
     ValueError,
     FormatError,
     UnauthorizedError
-} } = require('cf-mce-common')
-require('cf-mce-common/utils/array-random.polyfill')
-require('cf-mce-common/utils/math-random.polyfill')
+} } = require('cf-mev-common')
+require('cf-mev-common/utils/array-random.polyfill')
+require('cf-mev-common/utils/math-random.polyfill')
 
 const { expect } = require('chai')
 const logic = require('.')

@@ -4,7 +4,7 @@ const express = require('express')
 const package = require('./package.json')
 const routes = require('./routes')
 const cors = require('./routes/cors')
-const { mongoose } = require('cf-mce-data')
+const { mongoose } = require('cf-mev-data')
 
 const { env: { PORT, MONGO_URL: url }, argv: [, , port = PORT || 8080], } = process;
 
