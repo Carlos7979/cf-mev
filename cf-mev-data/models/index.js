@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const { user, customer, electronicModule, product, note } = require('./schemas')
+const { user, customer, electronicModule, product, note, registered } = require('./schemas')
 
 const model = mongoose.model.bind(mongoose)
 
@@ -9,5 +9,6 @@ module.exports = {
     Customer: model('Customer', customer),
     ElectronicModule: model('ElectronicModule', electronicModule),
     Product: model('Product', product),
-    Note: model('Note', note)
+    Note: model('Note', note),
+    Registered: model('Registered', registered)
 }

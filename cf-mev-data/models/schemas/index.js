@@ -84,4 +84,4 @@ const electronicModule = new Schema({
     technician: { type: String }
 })
 
-module.exports = { user, customer, electronicModule, product, note }
+module.exports = { user, customer, electronicModule, product, note, registered }
