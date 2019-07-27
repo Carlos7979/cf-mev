@@ -207,8 +207,8 @@ router.delete('/electronicmodules/notes/:electronicModuleId&noteId', auth, jsonP
 })
 
 router.post('/electronicmodules/budget/:electronicModuleId', auth, jsonParser, (req, res) => {
-    const { params: { electronicModuleId, body: { description, price } } } = req
-
+    debugger
+    const { body: { description, price }, params: { electronicModuleId } } = req
     handleErrors( async () => {
         await logic.addElectronicModuleBudget(electronicModuleId, description, price)
         return res.status(201).json({ message: 'Ok, a product has been added' })
@@ -230,6 +230,14 @@ router.delete('/electronicmodules/budget/:electronicModuleId', auth, jsonParser,
         await logic.deleteElectronicModuleBudgets(electronicModuleId, productId)
         if(productId) return res.status(201).json({ message: 'Ok, product is deleted.' })
         return res.status(201).json({ message: 'Ok, products are deleted.' })
+    }, res)
+})
+
+router.post('/electronicmodules/historical/:electronicModuleId', auth, jsonParser, (req, res) => {
+    const { body, params: {electronicModuleId} } = req
+    handleErrors( async () => {
+        await logic.addElectronicModuleRegistered(electronicModuleId, body)
+        return res.status(201).json({ message: 'Ok, a register has been added' })
     }, res)
 })
 
