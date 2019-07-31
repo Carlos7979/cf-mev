@@ -1,8 +1,8 @@
-const { models } = require('cf-mce-data')
-const { validate, dateApi, errors: { LogicError, UnauthorizedError, ValueError}  } = require('cf-mce-common')
+const { models } = require('cf-mev-data')
+const { validate, dateApi, errors: { LogicError, UnauthorizedError, ValueError}  } = require('cf-mev-common')
 const argon2 = require('argon2')
 
-const { User, Customer, ElectronicModule, Product, Note } = models
+const { User, Customer, ElectronicModule, Product, Note, Registered } = models
 
 const logic = {
     
@@ -350,14 +350,14 @@ const logic = {
         if (data.id && id !== data.id) throw new ValueError('data id does not match criteria id')
 
         // para ser implementado en la versión 2
-        // if(data.received) data.received = dateApi.createDate(data.received)
-        // if(data.reviewed) data.reviewed = dateApi.createDate(data.reviewed) 
-        // if(data.budgeted) data.budgeted = dateApi.createDate(data.budgeted) 
-        // if(data.approved) data.approved = dateApi.createDate(data.approved) 
-        // if(data.repaired) data.repaired = dateApi.createDate(data.repaired) 
-        // if(data.delivered) data.delivered = dateApi.createDate(data.delivered) 
-        // if(data.toCollect) data.toCollect = dateApi.createDate(data.toCollect) 
-        // if(data.collected) data.collected = dateApi.createDate(data.collected) 
+        if(data.received) data.received = dateApi.createDate(data.received)
+        if(data.reviewed) data.reviewed = dateApi.createDate(data.reviewed) 
+        if(data.budgeted) data.budgeted = dateApi.createDate(data.budgeted) 
+        if(data.approved) data.approved = dateApi.createDate(data.approved) 
+        if(data.repaired) data.repaired = dateApi.createDate(data.repaired) 
+        if(data.delivered) data.delivered = dateApi.createDate(data.delivered) 
+        if(data.toCollect) data.toCollect = dateApi.createDate(data.toCollect) 
+        if(data.collected) data.collected = dateApi.createDate(data.collected) 
 
         return (async () => {
             const electronicModule = await ElectronicModule.findOne({orderNumber: data.orderNumber})
@@ -387,7 +387,7 @@ const logic = {
         ])
 
         return (async () => {
-            const electronicModules = await ElectronicModule.find(criteria).select('-__v -notes -budget').lean()
+            const electronicModules = await ElectronicModule.find(criteria).select('-__v -notes -budget -historical -spares').lean()
 
             electronicModules.forEach(electronicModule => {
                 electronicModule.id = electronicModule._id.toString()
@@ -490,7 +490,6 @@ const logic = {
         return (async () => {
             const electronicModule = await ElectronicModule.findById(electronicModuleId)
             if(!electronicModule) throw new LogicError(`electronic module with id "${electronicModuleId}" does not exist`)
-
             electronicModule.budget.push(new Product({ description, price }))
 
             await electronicModule.save()
@@ -541,7 +540,21 @@ const logic = {
                 await electronicModule.save()
             }
         })()
-    }
+    },
+
+    addElectronicModuleRegistered(electronicModuleId, body) {
+       
+
+        return (async () => {
+            const electronicModule = await ElectronicModule.findById(electronicModuleId)
+            if(!electronicModule) throw new LogicError(`electronic module with id "${electronicModuleId}" does not exist`)
+            const number = electronicModule.historical.length
+            body.number = number + 1
+            electronicModule.historical.push(new Registered(body))
+
+            await electronicModule.save()
+        })()
+    },
 }
 
 module.exports = logic
