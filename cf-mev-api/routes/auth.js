@@ -1,5 +1,5 @@
 const handleErrors = require('./handle-errors')
-const { errors: { UnauthorizedError }  } = require('cf-mce-common')
+const { errors: { UnauthorizedError }  } = require('cf-mev-common')
 const jwt = require('jsonwebtoken')
 
 const { env: { JWT_SECRET } } = process

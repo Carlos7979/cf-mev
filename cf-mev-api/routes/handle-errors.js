@@ -1,4 +1,4 @@
-const { errors: { LogicError, ValueError, RequirementError, UnknownError, UnauthorizedError, FormatError }  } = require('cf-mce-common')
+const { errors: { LogicError, ValueError, RequirementError, UnknownError, UnauthorizedError, FormatError }  } = require('cf-mev-common')
 
 function handleErrors(callback, res) {
     try {
