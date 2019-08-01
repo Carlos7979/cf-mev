@@ -71,11 +71,6 @@ const electronicModule = new Schema({
     serial: { type: String },
     fail: { type: String },
     owner: { type: Schema.Types.ObjectId, ref: 'Customer', required: true },
-    status: {
-        type: String,
-        enum: ['RECEIVED', 'REVIEWED', 'BUDGETED', 'APPROVED', 'REPAIRED', 'TO-COLLECT', 'DELIVERED', 'COLLECTED'],
-        default: 'RECEIVED',
-    },
     notes: [note],
     historical: [registered]
 })
