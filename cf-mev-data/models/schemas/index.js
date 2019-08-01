@@ -23,7 +23,14 @@ const spare = new Schema({
 
 const registered = new Schema({
     number: {type: Number, required: true},
-    statusHistory: {type: Object, default: {}},
+    received: { type: Date, default: Date.now },
+    reviewed: { type: Date },
+    budgeted: { type: Date },
+    approved: { type: Date },
+    repaired: { type: Date },
+    delivered: { type: Date },
+    toCollect: { type: Date },
+    collected: { type: Date },
     budget: [product],
     spares: [spare],
     technician: { type: String }
@@ -53,14 +60,6 @@ const customer = new Schema({
 })
 
 const electronicModule = new Schema({
-    received: { type: Date, default: Date.now },
-    reviewed: { type: Date },
-    budgeted: { type: Date },
-    approved: { type: Date },
-    repaired: { type: Date },
-    delivered: { type: Date },
-    toCollect: { type: Date },
-    collected: { type: Date },
     orderNumber: { type: String, required: true, unique: true },
     brand: { type: String },
     model: { type: String },
@@ -72,16 +71,13 @@ const electronicModule = new Schema({
     serial: { type: String },
     fail: { type: String },
     owner: { type: Schema.Types.ObjectId, ref: 'Customer', required: true },
-    budget: [product],
     status: {
         type: String,
         enum: ['RECEIVED', 'REVIEWED', 'BUDGETED', 'APPROVED', 'REPAIRED', 'TO-COLLECT', 'DELIVERED', 'COLLECTED'],
         default: 'RECEIVED',
     },
     notes: [note],
-    historical: [registered],
-    spares: [spare],
-    technician: { type: String }
+    historical: [registered]
 })
 
 module.exports = { user, customer, electronicModule, product, note, registered }
